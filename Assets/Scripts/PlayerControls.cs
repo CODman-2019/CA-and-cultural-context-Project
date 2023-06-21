@@ -9,7 +9,8 @@ public class PlayerControls : MonoBehaviour
     public float clamp;
 
     private Rigidbody rb;
-    private Vector3 movement;
+    private Vector3 movement, newOrientation;
+    private float cameraMove, bodyRot;
 
     // Start is called before the first frame update
     void Start()
@@ -20,21 +21,26 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float playerX = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
-        float playerY = Input.GetAxisRaw("Vertical") * speed * Time.deltaTime;
+        float playerX = Input.GetAxisRaw("Horizontal") * speed;
+        float playerY = Input.GetAxisRaw("Vertical") * speed;
 
         movement = new Vector3(playerX, 0, playerY);
 
-        Vector2 mousePos = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        bodyRot += Input.GetAxisRaw("Mouse X");
+        cameraMove += Input.GetAxisRaw("Mouse Y");
+        cameraMove = Mathf.Clamp(cameraMove, -clamp, clamp);
 
-        transform.Rotate(0, mousePos.x, 0);
+        newOrientation = new Vector3(0, bodyRot, 0);
+        //transform.Rotate(0, mousePos.x, 0);
+        cam.transform.rotation = Quaternion.Euler(-cameraMove, bodyRot, 0);
     }
 
 
     private void FixedUpdate()
     {
 
-        rb.MovePosition(rb.transform.position + movement * speed * Time.deltaTime);
-        
+        //rb.MovePosition(rb.transform.position + movement * speed * Time.deltaTime);
+        rb.AddRelativeForce(movement);
+        rb.MoveRotation(Quaternion.AngleAxis(bodyRot, Vector3.up));
     }
 }
