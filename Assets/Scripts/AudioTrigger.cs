@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class AudioTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public AudioSource speaker;
+    public AudioClip dialogue;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerStay(Collider other)
     {
-        
+
+        if ((Input.GetKeyDown(KeyCode.Mouse0)) && (other.CompareTag("Player")))
+        {
+            if (speaker.isPlaying)
+            {
+                speaker.Stop();
+            }
+                speaker.clip = dialogue;
+                speaker.Play();
+            Debug.Log(this.name);
+        }
+
     }
 }
