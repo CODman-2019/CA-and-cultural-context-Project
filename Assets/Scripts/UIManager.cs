@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     {
         player.DisablePlayer();
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         pause.active = true;
     }
 
@@ -44,6 +45,7 @@ public class UIManager : MonoBehaviour
     {
         player.EnablePlayer();
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         pause.active = false;
 
     }

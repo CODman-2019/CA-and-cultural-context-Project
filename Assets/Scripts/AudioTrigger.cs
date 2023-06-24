@@ -10,7 +10,7 @@ public class AudioTrigger : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if ((Input.GetKeyDown(KeyCode.Mouse0)) && (other.CompareTag("Player")))
+        if ((Input.GetKeyDown(KeyCode.Mouse0)) && (other.tag == "Player"))
         {
             if (speaker.isPlaying)
             {

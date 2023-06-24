@@ -37,6 +37,10 @@ public class PlayerControls : MonoBehaviour
             //transform.Rotate(0, mousePos.x, 0);
             cam.transform.rotation = Quaternion.Euler(-cameraMove, bodyRot, 0);
         }
+        else
+        {
+            movement = Vector3.zero;
+        }
 
     }
 
