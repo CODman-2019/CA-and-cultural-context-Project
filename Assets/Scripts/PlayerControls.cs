@@ -22,8 +22,6 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enable)
-        {
             float playerX = Input.GetAxisRaw("Horizontal") * speed;
             float playerY = Input.GetAxisRaw("Vertical") * speed;
 
@@ -36,19 +34,14 @@ public class PlayerControls : MonoBehaviour
             newOrientation = new Vector3(0, bodyRot, 0);
             //transform.Rotate(0, mousePos.x, 0);
             cam.transform.rotation = Quaternion.Euler(-cameraMove, bodyRot, 0);
-        }
-        else
-        {
-            movement = Vector3.zero;
-        }
+       
 
     }
 
 
     private void FixedUpdate()
     {
-
-        //rb.MovePosition(rb.transform.position + movement * speed * Time.deltaTime);
+        //rb.Move(rb.transform.position + movement * speed * Time.deltaTime);
         rb.AddRelativeForce(movement);
         rb.MoveRotation(Quaternion.AngleAxis(bodyRot, Vector3.up));
     }
